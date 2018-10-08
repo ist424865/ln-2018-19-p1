@@ -25,11 +25,10 @@ fstdraw --isymbols=syms.txt --osymbols=syms.txt  --portrait a/misto2numerico.fst
 
 # Cria o transdutor que converte os meses de EN para PT
 fstcompile --isymbols=syms.txt --osymbols=syms.txt  b/mm_en2pt.txt | fstarcsort > b/mm_en2pt.fst
-fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait b/mm_en2pt.fst | dot -Tpdf  > b/mm_en2pt.pdf
 
 # Cria o transdutor que converte uma data de EN para PT
 fstconcat a/numerico_barra.fst b/mm_en2pt.fst > b/en2pt_aux.fst
-fstconcat b/en2pt_aux.fst a/numerico_barra.fst > b/en2pt_barra.fst
+fstconcat b/en2pt_aux.fst a/barra.fst > b/en2pt_barra.fst
 fstconcat b/en2pt_barra.fst a/numerico2numerico.fst > b/en2pt.fst
 fstdraw --isymbols=syms.txt --osymbols=syms.txt  --portrait b/en2pt.fst | dot -Tpdf > b/en2pt.pdf
 
@@ -85,29 +84,55 @@ fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait e/83562_misto.fst 
 fstcompile --isymbols=syms.txt --osymbols=syms.txt  e/83562_numerico.txt | fstarcsort > e/83562_numerico.fst
 fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait e/83562_numerico.fst | dot -Tpdf  > e/83562_numerico.pdf
 
+fstcompile --isymbols=syms.txt --osymbols=syms.txt  e/83562_pt.txt | fstarcsort > e/83562_pt.fst
+fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait e/83562_pt.fst | dot -Tpdf  > e/83562_pt.pdf
+
 # 70119 - André Rodrigues: 10/04/2010
 fstcompile --isymbols=syms.txt --osymbols=syms.txt  e/70119_misto.txt | fstarcsort > e/70119_misto.fst
 fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait e/70119_misto.fst | dot -Tpdf  > e/70119_misto.pdf
 
+fstcompile --isymbols=syms.txt --osymbols=syms.txt  e/70119_numerico.txt | fstarcsort > e/70119_numerico.fst
+fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait e/70119_numerico.fst | dot -Tpdf  > e/70119_numerico.pdf
+
+fstcompile --isymbols=syms.txt --osymbols=syms.txt  e/70119_pt.txt | fstarcsort > e/70119_pt.fst
+fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait e/70119_pt.fst | dot -Tpdf  > e/70119_pt.pdf
+
+
 # Testa o misto2numerico
-fstcompose e/83562_misto.fst a/misto2numerico.fst > e/83562_misto_numerico.fst
-fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait e/83562_misto_numerico.fst | dot -Tpdf > e/83562_misto_numerico.pdf
+fstcompose e/83562_misto.fst a/misto2numerico.fst > e/83562_misto2numerico.fst
+fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait e/83562_misto2numerico.fst | dot -Tpdf > e/83562_misto2numerico.pdf
+
+fstcompose e/70119_misto.fst a/misto2numerico.fst > e/70119_misto2numerico.fst
+fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait e/70119_misto2numerico.fst | dot -Tpdf > e/70119_misto2numerico.pdf
+
 
 # Testa o pt2en
-fstcompose e/83562_misto.fst b/pt2en.fst > e/83562_misto_en.fst
-fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait e/83562_misto_en.fst | dot -Tpdf > e/83562_misto_en.pdf
+fstcompose e/83562_pt.fst b/pt2en.fst > e/83562_pt2en.fst
+fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait e/83562_pt2en.fst | dot -Tpdf > e/83562_pt2en.pdf
+
+fstcompose e/70119_pt.fst b/pt2en.fst > e/70119_pt2en.fst
+fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait e/70119_pt2en.fst | dot -Tpdf > e/70119_pt2en.pdf
+
 
 # Testa o numerico2texto
-fstcompose e/83562_numerico.fst c/numerico2texto.fst > e/83562_numerico_texto.fst
-fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait e/83562_numerico_texto.fst | dot -Tpdf > e/83562_numerico_texto.pdf
+fstcompose e/83562_numerico.fst c/numerico2texto.fst > e/83562_numerico2texto.fst
+fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait e/83562_numerico2texto.fst | dot -Tpdf > e/83562_numerico2texto.pdf
+
+fstcompose e/70119_numerico.fst c/numerico2texto.fst > e/70119_numerico2texto.fst
+fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait e/70119_numerico2texto.fst | dot -Tpdf > e/70119_numerico2texto.pdf
+
 
 # Testa o misto2texto
-fstcompose e/83562_misto.fst d/misto2texto.fst > e/83562_misto_texto.fst
-fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait e/83562_misto_texto.fst | dot -Tpdf > e/83562_misto_texto.pdf
+fstcompose e/83562_misto.fst d/misto2texto.fst > e/83562_misto2texto.fst
+fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait e/83562_misto2texto.fst | dot -Tpdf > e/83562_misto2texto.pdf
+
+fstcompose e/70119_misto.fst d/misto2texto.fst > e/70119_misto2texto.fst
+fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait e/70119_misto2texto.fst | dot -Tpdf > e/70119_misto2texto.pdf
+
 
 # Testa o data2texto
-fstcompose e/83562_misto.fst d/data2texto.fst > e/83562_misto_data_texto.fst
-fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait e/83562_misto_data_texto.fst | dot -Tpdf > e/83562_misto_data_texto.pdf
+fstcompose e/83562_misto.fst d/data2texto.fst > e/83562_data2texto.fst
+fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait e/83562_data2texto.fst | dot -Tpdf > e/83562_data2texto.pdf
 
-fstcompose e/83562_numerico.fst d/data2texto.fst > e/83562_numerico_data_texto.fst
-fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait e/83562_numerico_data_texto.fst | dot -Tpdf > e/83562_numerico_data_texto.pdf
+fstcompose e/70119_numerico.fst d/data2texto.fst > e/70119_data2texto.fst
+fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait e/70119_data2texto.fst | dot -Tpdf > e/70119_data2texto.pdf

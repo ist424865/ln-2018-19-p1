@@ -30,6 +30,7 @@
 3   6   7   setenta
 3   6   8   oitenta
 3   6   9   noventa
+6   100 eps eps
 6   4   eps e
 100
 
