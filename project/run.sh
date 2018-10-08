@@ -7,12 +7,17 @@
 fstcompile --isymbols=syms.txt --osymbols=syms.txt  a/mmm2mm.txt | fstarcsort > a/mmm2mm.fst
 fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait a/mmm2mm.fst | dot -Tpdf  > a/mmm2mm.pdf
 
-# Cria o transdutor que processa numeros e '/'
+# Cria o transdutor que processa numeros
 fstcompile --isymbols=syms.txt --osymbols=syms.txt  a/numerico2numerico.txt | fstarcsort > a/numerico2numerico.fst
 
+# Cria o transdutor que processa barras
+fstcompile --isymbols=syms.txt --osymbols=syms.txt  a/barra.txt | fstarcsort > a/barra.fst
+
 # Cria o transdutor que converte uma data do formato condensado misto para o numérico
-fstconcat a/numerico2numerico.fst a/mmm2mm.fst > a/misto2numerico_aux.fst
-fstconcat a/misto2numerico_aux.fst a/numerico2numerico.fst > a/misto2numerico.fst
+fstconcat a/numerico2numerico.fst a/barra.fst > a/numerico_barra.fst
+fstconcat a/numerico_barra.fst a/mmm2mm.fst > a/misto2numerico_aux.fst
+fstconcat a/misto2numerico_aux.fst a/barra.fst > a/misto2numerico_barra.fst
+fstconcat a/misto2numerico_barra.fst a/numerico2numerico.fst > a/misto2numerico.fst
 fstdraw --isymbols=syms.txt --osymbols=syms.txt  --portrait a/misto2numerico.fst | dot -Tpdf > a/misto2numerico.pdf
 
 
@@ -23,8 +28,9 @@ fstcompile --isymbols=syms.txt --osymbols=syms.txt  b/mm_en2pt.txt | fstarcsort 
 fstdraw    --isymbols=syms.txt --osymbols=syms.txt --portrait b/mm_en2pt.fst | dot -Tpdf  > b/mm_en2pt.pdf
 
 # Cria o transdutor que converte uma data de EN para PT
-fstconcat a/numerico2numerico.fst b/mm_en2pt.fst > b/en2pt_aux.fst
-fstconcat b/en2pt_aux.fst a/numerico2numerico.fst > b/en2pt.fst
+fstconcat a/numerico_barra.fst b/mm_en2pt.fst > b/en2pt_aux.fst
+fstconcat b/en2pt_aux.fst a/numerico_barra.fst > b/en2pt_barra.fst
+fstconcat b/en2pt_barra.fst a/numerico2numerico.fst > b/en2pt.fst
 fstdraw --isymbols=syms.txt --osymbols=syms.txt  --portrait b/en2pt.fst | dot -Tpdf > b/en2pt.pdf
 
 # Cria o transdutor que converte uma data de PT para EN
@@ -96,8 +102,8 @@ fstcompose e/83562_numerico.fst c/numerico2texto.fst > e/83562_numerico_texto.fs
 fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait e/83562_numerico_texto.fst | dot -Tpdf > e/83562_numerico_texto.pdf
 
 # Testa o misto2texto
-#fstcompose e/83562_misto.fst d/misto2texto.fst > e/83562_misto_texto.fst
-#fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait e/83562_misto_texto.fst | dot -Tpdf > e/83562_misto_texto.pdf
+fstcompose e/83562_misto.fst d/misto2texto.fst > e/83562_misto_texto.fst
+fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait e/83562_misto_texto.fst | dot -Tpdf > e/83562_misto_texto.pdf
 
 # Testa o data2texto
 fstcompose e/83562_misto.fst d/data2texto.fst > e/83562_misto_data_texto.fst
